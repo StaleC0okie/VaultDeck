@@ -1,0 +1,128 @@
+:root {
+  --canvas: #050608;
+  --ink: #0a0b0f;
+  --panel: #0f1219;
+  --borde: #1f1e2a;
+  --texto: #ffffff;
+  --texto-apagado: #b2b8cd;
+  --violeta: #7064f2;
+  --error: #ff6b6b;
+  --radio-boton: 12px;
+  --radio-tarjeta: 16px;
+  --fuente: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--texto);
+  font-family: var(--fuente);
+}
+
+h1 { font-weight: 500; letter-spacing: -0.02em; }
+
+input, textarea, select {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--ink);
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-boton);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--panel);
+  border: 1px solid transparent;
+  border-radius: var(--radio-boton);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+button.secundario {
+  background: transparent;
+  color: var(--texto);
+  border-color: var(--borde);
+}
+
+.login {
+  max-width: 360px;
+  margin: 15vh auto 0;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-tarjeta);
+}
+
+.error { margin: 0; color: var(--error); font-size: 14px; }
+
+.barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--borde);
+}
+.logo { font-weight: 500; font-size: 18px; }
+.contenido { padding: 32px; }
+
+.cabecera-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.cabecera-seccion h1 { margin: 0; font-size: 28px; }
+
+.apagado { color: var(--texto-apagado); }
+
+.formulario-mazo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  margin-bottom: 24px;
+  padding: 24px;
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-tarjeta);
+}
+.formulario-mazo h2 { margin: 0; font-size: 18px; font-weight: 500; }
+
+.grid-mazos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta-mazo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-tarjeta);
+}
+.tarjeta-mazo h2 { margin: 0; font-size: 18px; font-weight: 500; }
+
+.meta { margin: 0; color: var(--texto-apagado); font-size: 13px; text-transform: capitalize; }
+.acciones { display: flex; gap: 8px; margin-top: 8px; }
+
+.aviso-error {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--error);
+}
