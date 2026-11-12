@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .models import CartaMazo, Mazo
 
-FORMATOS_VALIDOS = ['commander', 'standard', 'modern', 'pioneer', 'legacy', 'pauper']
+FORMATOS_VALIDOS = ['commander']
 
 
 class CartaMazoSerializer(serializers.ModelSerializer):

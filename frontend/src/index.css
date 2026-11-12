@@ -116,7 +116,7 @@ button.secundario {
 }
 .tarjeta-mazo h2 { margin: 0; font-size: 18px; font-weight: 500; }
 
-.meta { margin: 0; color: var(--texto-apagado); font-size: 13px; text-transform: capitalize; }
+.meta { margin: 0; color: var(--texto-apagado); font-size: 13px; }
 .acciones { display: flex; gap: 8px; margin-top: 8px; }
 
 .aviso-error {
@@ -125,4 +125,61 @@ button.secundario {
   gap: 12px;
   margin-bottom: 16px;
   color: var(--error);
+}
+
+.formato { text-transform: capitalize; }
+
+.subtitulo { font-size: 18px; font-weight: 500; margin: 32px 0 16px; }
+
+.grid-cartas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta-carta { display: flex; flex-direction: column; gap: 8px; }
+.tarjeta-carta img { width: 100%; height: auto; display: block; }
+.nombre-carta { margin: 0; font-size: 13px; color: var(--texto-apagado); }
+
+.sin-imagen {
+  aspect-ratio: 5 / 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  color: var(--texto-apagado);
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-tarjeta);
+}
+
+.buscador-cartas { display: flex; gap: 8px; max-width: 520px; margin-bottom: 24px; }
+.buscador-cartas button { flex-shrink: 0; }
+
+.pie {
+  padding: 16px 32px;
+  border-top: 1px solid var(--borde);
+  color: var(--texto-apagado);
+  font-size: 12px;
+}
+
+.barra-izq { display: flex; align-items: center; gap: 32px; }
+.nav { display: flex; gap: 8px; }
+
+.nav-btn {
+  background: transparent;
+  color: var(--texto-apagado);
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+.nav-btn.activo {
+  color: var(--texto);
+  border-color: var(--violeta);
+}
+
+.buscador-cartas select { width: auto; flex-shrink: 0; }
+
+.pie{
+  text-align: center;
 }

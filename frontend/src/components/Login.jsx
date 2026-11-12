@@ -31,7 +31,7 @@ function Login({ onLogin }) {
 
   return (
     <form className="login" onSubmit={manejarEnvio}>
-      <h1>VaultDeck</h1>
+      <h1>Ingresar</h1>
       <input
         value={username}
         onChange={(e) => setUsername(e.target.value)}

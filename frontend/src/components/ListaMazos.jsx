@@ -3,6 +3,7 @@ import { actualizarMazo, crearMazo, eliminarMazo, listarMazos } from '../api/maz
 import { mensajeDeError } from '../api/errores';
 import FormularioMazo from './FormularioMazo';
 import TarjetaMazo from './TarjetaMazo';
+import DetalleMazo from './DetalleMazo';
 
 function ListaMazos() {
   const [mazos, setMazos] = useState([]);
@@ -10,6 +11,7 @@ function ListaMazos() {
   const [error, setError] = useState('');
   const [mostrarForm, setMostrarForm] = useState(false);
   const [mazoEditando, setMazoEditando] = useState(null);
+  const [mazoAbiertoId, setMazoAbiertoId] = useState(null);
 
   async function cargarMazos() {
     setCargando(true);
@@ -58,6 +60,18 @@ function ListaMazos() {
     }
   }
 
+   if (mazoAbiertoId) {
+     return (
+       <DetalleMazo
+         mazoId={mazoAbiertoId}
+         onVolver={() => {
+           setMazoAbiertoId(null);
+           cargarMazos();
+         }}
+       />
+     );
+   }  
+
   return (
     <section>
       <div className="cabecera-seccion">
@@ -94,6 +108,7 @@ function ListaMazos() {
             mazo={mazo}
             onEditar={() => abrirEditar(mazo)}
             onEliminar={() => eliminar(mazo)}
+            onAbrir={() => setMazoAbiertoId(mazo.id)}
           />
         ))}
       </div>

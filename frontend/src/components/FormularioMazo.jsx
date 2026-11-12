@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { mensajeDeError } from '../api/errores';
 
-const FORMATOS = ['commander', 'standard', 'modern', 'pioneer', 'legacy', 'pauper'];
-
 function FormularioMazo({ mazo, onGuardar, onCancelar }) {
   const [nombre, setNombre] = useState(mazo?.nombre ?? '');
-  const [formato, setFormato] = useState(mazo?.formato ?? 'commander');
   const [descripcion, setDescripcion] = useState(mazo?.descripcion ?? '');
   const [error, setError] = useState('');
   const [guardando, setGuardando] = useState(false);
@@ -15,7 +12,7 @@ function FormularioMazo({ mazo, onGuardar, onCancelar }) {
     setError('');
     setGuardando(true);
     try {
-      await onGuardar({ nombre, formato, descripcion });
+      await onGuardar({ nombre, formato: 'commander', descripcion });
     } catch (err) {
       setError(mensajeDeError(err));
     } finally {
@@ -31,11 +28,7 @@ function FormularioMazo({ mazo, onGuardar, onCancelar }) {
         onChange={(e) => setNombre(e.target.value)}
         placeholder="Nombre del mazo"
       />
-      <select value={formato} onChange={(e) => setFormato(e.target.value)}>
-        {FORMATOS.map((f) => (
-          <option key={f} value={f}>{f}</option>
-        ))}
-      </select>
+      <p className="apagado">Formato: Commander</p>
       <textarea
         value={descripcion}
         onChange={(e) => setDescripcion(e.target.value)}
