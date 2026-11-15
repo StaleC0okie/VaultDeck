@@ -7,9 +7,13 @@ export function mensajeDeError(err) {
   if (status === 400) {
     if (data.detail) return data.detail;
     return Object.entries(data)
-      .map(([campo, mensajes]) => `${campo}: ${[].concat(mensajes).join(' ')}`)
+      .map(([campo, mensajes]) => {
+        const texto = [].concat(mensajes).join(' ');
+        return campo === 'non_field_errors' ? texto : `${campo}: ${texto}`;
+      })
       .join(' | ');
   }
+  
   if (status === 401) return 'Tu sesión expiró. Vuelve a ingresar.';
   if (status === 404) return 'El recurso no existe o fue eliminado.';
   return 'Ocurrió un error inesperado en el servidor.';

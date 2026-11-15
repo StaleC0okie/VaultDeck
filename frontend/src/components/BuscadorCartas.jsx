@@ -42,20 +42,23 @@ function BuscadorCartas({ idsEnMazo = [], onAgregar }) {
 
       {error && <p className="error">{error}</p>}
       {buscado && !buscando && !error && resultados.length === 0 && (
-        <p className="apagado">
-          No se encontraron cartas.
-        </p>
+        <p className="apagado">No se encontraron cartas.</p>
       )}
 
       <div className="grid-cartas">
         {resultados.map((carta) => {
           const yaEnMazo = idsEnMazo.includes(carta.scryfall_id);
+          let textoBoton;
+          if (onAgregar) {
+            if (!yaEnMazo) textoBoton = 'Agregar';
+            else textoBoton = carta.es_basica ? 'Agregar otra' : 'En el mazo';
+          }
           return (
             <TarjetaCarta
               key={carta.scryfall_id}
               carta={carta}
-              textoBoton={onAgregar ? (yaEnMazo ? 'En el mazo' : 'Agregar') : undefined}
-              deshabilitado={yaEnMazo}
+              textoBoton={textoBoton}
+              deshabilitado={yaEnMazo && !carta.es_basica}
               onAccion={() => onAgregar?.(carta)}
             />
           );

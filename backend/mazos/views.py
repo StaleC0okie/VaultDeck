@@ -2,7 +2,6 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
 from .models import CartaMazo, Mazo
 from .serializers import CartaMazoSerializer, MazoSerializer
 
@@ -41,7 +40,7 @@ def mazo_detalle(request, pk):
 @api_view(['POST'])
 def mazo_cartas(request, pk):
     mazo = get_object_or_404(Mazo, pk=pk, usuario=request.user)
-    serializer = CartaMazoSerializer(data=request.data)
+    serializer = CartaMazoSerializer(data=request.data, context={'mazo': mazo})
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -54,9 +53,22 @@ def mazo_cartas(request, pk):
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['DELETE'])
+@api_view(['PATCH', 'DELETE'])
 def mazo_carta_detalle(request, pk, carta_pk):
     carta = get_object_or_404(
         CartaMazo, pk=carta_pk, mazo__pk=pk, mazo__usuario=request.user)
-    carta.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+
+    if request.method == 'DELETE':
+        carta.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    serializer = CartaMazoSerializer(
+        carta,
+        data={'cantidad': request.data.get('cantidad')},
+        partial=True,
+        context={'mazo': carta.mazo},
+    )
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

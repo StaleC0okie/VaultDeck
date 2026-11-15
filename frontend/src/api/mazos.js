@@ -32,3 +32,8 @@ export async function agregarCarta(mazoId, carta) {
 export async function quitarCarta(mazoId, cartaId) {
   await client.delete(`/mazos/${mazoId}/cartas/${cartaId}/`);
 }
+
+export async function actualizarCantidad(mazoId, cartaId, cantidad) {
+  const respuesta = await client.patch(`/mazos/${mazoId}/cartas/${cartaId}/`, { cantidad });
+  return respuesta.data;
+}

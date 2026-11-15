@@ -6,7 +6,7 @@ import PaginaBuscar from './components/PaginaBuscar';
 
 function App() {
   const [autenticado, setAutenticado] = useState(haySesion());
-  const [vista, setVista] = useState('buscar'); // 'buscar' | 'mazos'
+  const [vista, setVista] = useState('buscar');
 
   function cerrarSesion() {
     logout();
@@ -16,7 +16,6 @@ function App() {
 
   function contenido() {
     if (vista === 'mazos') {
-      // Pantalla protegida: sin sesión se muestra el login
       return autenticado
         ? <ListaMazos />
         : <Login onLogin={() => setAutenticado(true)} />;
