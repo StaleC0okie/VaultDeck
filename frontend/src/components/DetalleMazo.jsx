@@ -56,7 +56,7 @@ function DetalleMazo({ mazoId, onVolver }) {
     }
   }
 
-  async function cambiarCantidad(carta, nueva) {
+  async function cambiarCantidad(carta, nueva, mostrarAviso = false) {
     if (nueva < 1) return quitar(carta);
 
     setAvisoCarta(null);
@@ -74,6 +74,13 @@ function DetalleMazo({ mazoId, onVolver }) {
           c.id === carta.id ? actualizada : c
         ),
       });
+
+      if (mostrarAviso) {
+        setAvisoCarta({
+          texto: '¡Carta agregada correctamente!',
+          tipo: 'exito',
+        });
+      }
     } catch (err) {
       setAvisoCarta({
         texto: mensajeDeError(err),
@@ -85,7 +92,7 @@ function DetalleMazo({ mazoId, onVolver }) {
   async function agregar(carta) {
     const existente = mazo.cartas.find((c) =>
       carta.oracle_id && c.oracle_id
-        ? c.oracle_id === carta.oracle_id
+        ? carta.oracle_id === c.oracle_id
         : c.scryfall_id === carta.scryfall_id
     );
 
@@ -98,11 +105,10 @@ function DetalleMazo({ mazoId, onVolver }) {
         return;
       }
 
-      setAvisoCarta(null);
-
       return cambiarCantidad(
         existente,
-        existente.cantidad + 1
+        existente.cantidad + 1,
+        true
       );
     }
 
