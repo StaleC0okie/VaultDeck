@@ -1,7 +1,8 @@
+
 import { useState } from 'react';
 import { login } from '../api/auth';
 
-function Login({ onLogin }) {
+function Login({ onLogin, onRegistro }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -11,6 +12,7 @@ function Login({ onLogin }) {
     evento.preventDefault();
     setError('');
     setCargando(true);
+
     try {
       await login(username, password);
       onLogin();
@@ -31,21 +33,29 @@ function Login({ onLogin }) {
 
   return (
     <form className="login" onSubmit={manejarEnvio}>
-      <h1>Ingresar</h1>
+      <h1>Iniciar sesión</h1>
+
       <input
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Usuario"
       />
+
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Contraseña"
       />
+
       <button type="submit" disabled={cargando}>
         {cargando ? 'Ingresando...' : 'Ingresar'}
       </button>
+
+      <button type="button" onClick={onRegistro}>
+        Crear una cuenta
+      </button>
+
       {error && <p className="error">{error}</p>}
     </form>
   );

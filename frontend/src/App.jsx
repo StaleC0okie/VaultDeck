@@ -3,10 +3,13 @@ import { haySesion, logout } from './api/auth';
 import Login from './components/Login';
 import ListaMazos from './components/ListaMazos';
 import PaginaBuscar from './components/PaginaBuscar';
+import Registro from './components/Registro';
+
 
 function App() {
   const [autenticado, setAutenticado] = useState(haySesion());
   const [vista, setVista] = useState('buscar');
+  const [mostrarRegistro, setMostrarRegistro] = useState(false);
 
   function cerrarSesion() {
     logout();
@@ -14,19 +17,33 @@ function App() {
     setVista('buscar');
   }
 
-  function contenido() {
-    if (vista === 'mazos') {
-      return autenticado
-        ? <ListaMazos />
-        : <Login onLogin={() => setAutenticado(true)} />;
+function contenido() {
+  if (vista === 'mazos') {
+    if (autenticado) {
+      return <ListaMazos />;
     }
-    return <PaginaBuscar />;
+
+    return mostrarRegistro ? (
+      <Registro
+        onRegistro={() => setMostrarRegistro(false)}
+        onVolver={() => setMostrarRegistro(false)}
+      />
+    ) : (
+      <Login
+        onLogin={() => setAutenticado(true)}
+        onRegistro={() => setMostrarRegistro(true)}
+      />
+    );
   }
+
+  return <PaginaBuscar />;
+}
 
   return (
     <div>
       <header className="barra">
         <div className="barra-izq">
+          <div className="logo-container" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}></div>
           <span className="logo">VaultDeck</span>
           <nav className="nav">
             <button

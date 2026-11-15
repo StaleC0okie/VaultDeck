@@ -8,4 +8,5 @@ urlpatterns = [
     path('mazos/<int:pk>/cartas/', views.mazo_cartas, name='mazo-cartas'),
     path('mazos/<int:pk>/cartas/<int:carta_pk>/',
         views.mazo_carta_detalle, name='mazo-carta-detalle'),
+    path('auth/registro/', views.registro_usuario, name='registro'),
 ]

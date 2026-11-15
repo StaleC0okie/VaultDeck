@@ -285,3 +285,15 @@ html, body {
 .comandante-elegido img { width: 140px; height: auto; display: block; }
 .nombre-comandante { margin: 0 0 8px; font-weight: 500; }
 .comandante-linea { cursor: default; }
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}

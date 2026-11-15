@@ -1,11 +1,14 @@
 from django.db.models import Sum
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
+from django.contrib.auth.password_validation import validate_password
 
 from .models import CartaMazo, Mazo
 
 FORMATOS_VALIDOS = ['commander']
 LIMITE_MAZO = 100 
 NOMBRES_COLOR = {'W': 'blanco', 'U': 'azul', 'B': 'negro', 'R': 'rojo', 'G': 'verde'}
+User = get_user_model()
 
 
 def texto_colores(colores):
@@ -82,3 +85,38 @@ class MazoSerializer(serializers.ModelSerializer):
         if not isinstance(value, list) or any(c not in NOMBRES_COLOR for c in value):
             raise serializers.ValidationError('Colores no válidos. Usa W, U, B, R o G.')
         return value
+
+class RegistroSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=150)
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+    password2 = serializers.CharField(write_only=True)
+
+    def validate_username(self, value):
+        if User.objects.filter(username__iexact=value).exists():
+            raise serializers.ValidationError(
+                'Este nombre de usuario ya está registrado.')
+        return value
+
+    def validate_email(self, value):
+        if User.objects.filter(email__iexact=value).exists():
+            raise serializers.ValidationError(
+                'Este correo electrónico ya está registrado.')
+        return value
+
+    def validate(self, datos):
+        if datos['password'] != datos['password2']:
+            raise serializers.ValidationError(
+                {'password2': 'Las contraseñas no coinciden.'})
+
+        validate_password(datos['password'])
+        return datos
+
+    def create(self, validated_data):
+        validated_data.pop('password2')
+        password = validated_data.pop('password')
+
+        return User.objects.create_user(
+            password=password,
+            **validated_data
+        )
