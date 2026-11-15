@@ -1,3 +1,4 @@
+
 import client from './client';
 
 export async function listarMazos() {
@@ -25,7 +26,11 @@ export async function obtenerMazo(id) {
 }
 
 export async function agregarCarta(mazoId, carta) {
-  const respuesta = await client.post(`/mazos/${mazoId}/cartas/`, carta);
+  const respuesta = await client.post(
+    `/mazos/${mazoId}/cartas/`,
+    carta
+  );
+
   return respuesta.data;
 }
 

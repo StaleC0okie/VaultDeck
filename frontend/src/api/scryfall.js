@@ -57,9 +57,11 @@ export async function buscarCartas(texto, filtro = '') {
 
   return unicas.slice(0, MAX_RESULTADOS).map((carta) => ({
     scryfall_id: carta.id,
+    oracle_id: carta.oracle_id || carta.card_faces?.[0]?.oracle_id || '',
     nombre: carta.printed_name || carta.name,
+    tipo: carta.type_line || carta.card_faces?.[0]?.type_line || 'Sin tipo',
     es_basica: esTierraBasica(carta),
-    color_identity: carta.color_identity || [], 
+    color_identity: carta.color_identity || [],
     imagen:
       carta.image_uris?.normal ||
       carta.card_faces?.[0]?.image_uris?.normal ||

@@ -1,14 +1,25 @@
-function TarjetaCarta({ carta, textoBoton, deshabilitado, onAccion }) {
+
+function TarjetaCarta({ carta, textoBoton, deshabilitado, onAccion, onVer }) {
   return (
-    <div className="tarjeta-carta">
+    <div
+      className="tarjeta-carta"
+      onMouseEnter={() => onVer?.(carta)}
+      onMouseLeave={() => onVer?.(null)}
+    >
       {carta.imagen ? (
         <img src={carta.imagen} alt={carta.nombre} loading="lazy" />
       ) : (
         <div className="sin-imagen">{carta.nombre}</div>
       )}
+
       <p className="nombre-carta">{carta.nombre}</p>
+
       {textoBoton && (
-        <button className="secundario" disabled={deshabilitado} onClick={onAccion}>
+        <button
+          className="secundario"
+          disabled={deshabilitado}
+          onClick={onAccion}
+        >
           {textoBoton}
         </button>
       )}

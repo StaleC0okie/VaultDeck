@@ -22,11 +22,13 @@ class CartaMazo(models.Model):
     mazo = models.ForeignKey(
         Mazo, on_delete=models.CASCADE, related_name='cartas')
     scryfall_id = models.CharField(max_length=36)
+    oracle_id = models.CharField(max_length=36, blank=True, default='')
     nombre = models.CharField(max_length=200)
     imagen = models.URLField(max_length=500, blank=True)
     cantidad = models.PositiveIntegerField(default=1)
     es_basica = models.BooleanField(default=False)
     color_identity = models.JSONField(default=list, blank=True)
+    tipo = models.CharField(max_length=200, blank=True, default='')
 
     def __str__(self):
         return f'{self.cantidad}x {self.nombre}'

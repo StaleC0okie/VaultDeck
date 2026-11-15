@@ -1,10 +1,11 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+
 from .models import CartaMazo, Mazo
 from .serializers import CartaMazoSerializer, MazoSerializer, RegistroSerializer
-from rest_framework.permissions import AllowAny
 
 @api_view(['GET', 'POST'])
 def mazos_lista(request):
@@ -74,6 +75,7 @@ def mazo_carta_detalle(request, pk, carta_pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
+@authentication_classes([])
 @permission_classes([AllowAny])
 def registro_usuario(request):
     serializer = RegistroSerializer(data=request.data)

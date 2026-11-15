@@ -10,16 +10,23 @@ LIMITE_MAZO = 100
 NOMBRES_COLOR = {'W': 'blanco', 'U': 'azul', 'B': 'negro', 'R': 'rojo', 'G': 'verde'}
 User = get_user_model()
 
-
 def texto_colores(colores):
     return ', '.join(NOMBRES_COLOR.get(c, c) for c in colores) or 'incoloro'
-
 
 class CartaMazoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartaMazo
-        fields = ['id', 'scryfall_id', 'nombre', 'imagen', 'cantidad',
-                  'es_basica', 'color_identity']
+        fields = [
+            'id',
+            'scryfall_id',
+            'oracle_id',
+            'nombre',
+            'tipo',
+            'imagen',
+            'cantidad',
+            'es_basica',
+            'color_identity'
+        ]
 
     def validate_cantidad(self, value):
         if value < 1:
@@ -50,7 +57,6 @@ class CartaMazoSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 f'El mazo no puede superar las {LIMITE_MAZO} cartas.')
         return datos
-
 
 class MazoSerializer(serializers.ModelSerializer):
     cartas = CartaMazoSerializer(many=True, read_only=True)

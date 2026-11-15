@@ -121,6 +121,7 @@ html, body {
 }
 
 .tarjeta-mazo {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -128,11 +129,49 @@ html, body {
   background: var(--panel);
   border: 1px solid var(--borde);
   border-radius: var(--radio-tarjeta);
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 200px;
 }
-.tarjeta-mazo h2 { margin: 0; font-size: 18px; font-weight: 500; }
+
+.fondo-comandante {
+  position: absolute;
+  inset: -12px;
+  z-index: -2;
+  background-size: 120%;
+  background-position: center 20%;
+  filter: blur(3px);
+  transform: scale(1.05);
+}
+
+.tarjeta-mazo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(5, 6, 8, 0.78);
+}
+
+.contenido-tarjeta-mazo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+}
+
+.tarjeta-mazo h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
 
 .meta { margin: 0; color: var(--texto-apagado); font-size: 13px; }
-.acciones { display: flex; gap: 8px; margin-top: 8px; }
+.acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
 
 .aviso-error {
   display: flex;
@@ -286,14 +325,63 @@ html, body {
 .nombre-comandante { margin: 0 0 8px; font-weight: 500; }
 .comandante-linea { cursor: default; }
 
-.logo-container {
+.mensaje-carta {
+  margin-top: 20px;
+}
+
+
+.comandante-linea {
+  margin-top: 12px;
+}
+
+.identidad-comandante {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-top: 8px;
+  color: var(--texto-apagado);
+  font-size: 13px;
 }
 
-.logo-img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
+.simbolos-colores {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.simbolo-color {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.color-W {
+  background: #f5e8bd;
+  color: #29251c;
+}
+
+.color-U {
+  background: #397fc4;
+  color: white;
+}
+
+.color-B {
+  background: #34313b;
+  color: white;
+}
+
+.color-R {
+  background: #c94b42;
+  color: white;
+}
+
+.color-G {
+  background: #438b55;
+  color: white;
 }
